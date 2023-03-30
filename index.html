@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+</head>
+<body>
+    
+    <form action="/constructor" method="post" id="formulario" class="form col-5">
+        <div>
+           <label for="filaMatriz1" > <h2>Ingrese el numero de columnas para la primer matriz que tambien sera el numero de filas de la segunda matriz</h2></label>
+            <input class="form-control" type="number" name="columnaMatriz1" id="columnaMatriz1">
+            <label for="columnaMatriz1" "><h2>Ingrese el numero de filas para la primer matriz</h2></label>
+            <input class="form-control" type="number" name="filaMatriz1" id="filaMatriz1">
+            <label for="filaMatriz2" ><h2>Ingrese el numero de columnas para la segunda matriz</h2></label>
+            <input class="form-control" type="number" name="columnaMatriz2" id="columnaMatriz2">
+            <button type="submit" id="Construir">Construir</button>
+        </div>
+
+    </form>
+      <div id="capturar">
+
+      </div>
+
+    <script>
+            document.getElementById("formulario").addEventListener("submit", () =>{
+                //e.preventDefault()
+                const columnaMatriz2 = parseInt(document.querySelector("#columnaMatriz2").value);
+                const columnaMatriz1 = parseInt(document.querySelector("#columnaMatriz1").value);
+                const filaMatriz1 = parseInt( document.querySelector("#filaMatriz1").value);
+                console.log(columnaMatriz1);
+                console.log(columnaMatriz2);
+                console.log(filaMatriz1);
+
+
+                document.querySelector("#capturar").innerHTML = `
+                <form action="/capturar" method="post">
+                  <div>
+                    ${constructor(1, columnaMatriz2, columnaMatriz1)}
+                  </div>
+                  <br/>
+                  <div>
+                    ${constructor( 2, columnaMatriz1, filaMatriz1)}
+                  </div>
+
+                  <button type="submit">Calcular</button>
+                </form>
+                `;
+                   
+            })
+
+            //Declaro una funcion para contruir tablas de matrices donde se ingrsaran los valores
+
+           function constructor(num, columna, fila){
+            let tabla = "<table>";
+
+            for(let x = 0; x < columna; x++){
+                   tabla += "<tr>";
+
+                     for(let i = 0; i < fila; i++){
+                        tabla += `<th class="col"><input type="number" name"${num}${x}${i}"></th>`;
+                     }
+                     tabla+= "</tr>";
+            }
+            tabla += "</table>"
+
+            console.log(tabla)
+            return tabla;
+           }
+
+           
+          
+           
+    </script>
+</body>
+</html>
