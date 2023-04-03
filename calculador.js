@@ -1,6 +1,8 @@
 const express = require("express");
 
-const app = express();
+const app = express();}
+
+
 
 app.use(express.urlencoded({extended:true}));
 
@@ -25,26 +27,15 @@ app.post("/constructor", (req, res)=>{
     console.log(`Datos capturados ${JSON.stringify(dimensiones)}`)
 })
 
-function constructorM(columna, fila, tb){
-   
-    for(let x = 0; x < columna; x++){
-        matrices[x]= [];
-   
-          for(let i = 0; i < fila; i++){
-         ;
-             matrices[x][i]= "";
-          }
-        
-}
-}
 
 
 app.post("/capturar", (req, res)=>{
-    const matriz1 = [];
+    const {matrices} = req.body;
 
-    const matriz2 = [];
+    
 
-   
+    
+   console.log( matrices)
 })
 
 app.listen(4050, ()=>console.log("Listo para los chismes"))

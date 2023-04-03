@@ -37,7 +37,7 @@
 
 
                 document.querySelector("#capturar").innerHTML = `
-                <form action="/capturar" method="post">
+                <form>
                   <div>
                     ${constructor(1, columnaMatriz2, columnaMatriz1)}
                   </div>
@@ -46,9 +46,27 @@
                     ${constructor( 2, columnaMatriz1, filaMatriz1)}
                   </div>
 
-                  <button type="submit">Calcular</button>
+                  <button type="button" id="enviarMatriz">Calcular</button>
                 </form>
                 `;
+
+                document.querySelector("#enviarMatriz").addEventListener("click", async()=>{
+                      const matrices = JSON.stringify({
+                        matriz1: extractor(1, columnaMatriz2, columnaMatriz1),
+                        matriz2: extractor(2, columnaMatriz1, filaMatriz1)
+                      }); 
+
+                      console.log(matrices)
+
+                    await fetch("http://localhost:4050/capturar", {
+                      method: "POST",
+                      body: matrices,
+                      headers: {
+                         'Content-Type': 'application/json'
+                       }
+                    }).then(res=> consele.log(res)).catch(er=>console.log(er));
+                    
+                  });
                    
             })
 
@@ -61,7 +79,7 @@
                    tabla += "<tr>";
 
                      for(let i = 0; i < fila; i++){
-                        tabla += `<th class="col"><input type="number" name"${num}${x}${i}"></th>`;
+                        tabla += `<th class="col"><input type="number" id="${num}${x}${i}"></th>`;
                      }
                      tabla+= "</tr>";
             }
@@ -71,7 +89,25 @@
             return tabla;
            }
 
-           
+           function extractor(num, columna, fila){
+
+              let matriz = [];
+
+              for(let x = 0; x < columna; x++){
+                    matriz[x] = [];
+                    
+                      for(let i = 0; i < fila; i++){
+                        matriz[x][i] = parseInt(document.getElementById(`${num}${x}${i}`).value);
+                      }
+              }
+
+              console.log(matriz)
+              return matriz;
+           }
+
+           //document.querySelector([name="fila"])
+
+         
           
            
     </script>
