@@ -64,7 +64,25 @@
                       headers: {
                          'Content-Type': 'application/json'
                        }
-                    }).then(res=> consele.log(res)).catch(er=>console.log(er));
+                    }).then(res=> res.json())
+                    .then(res => {
+                      console.log(res)
+                      let tabla = "<table>";
+
+                        for(let x = 0; x < res.result.data.length; x++){
+                              tabla += "<tr>";
+
+                                for(let i = 0; i < res.result.data.length; i++){
+                                    tabla += `<th class="col"><input type="number" value="${res.result.data[x][i]}" ></th>`;
+                                }
+                                tabla+= "</tr>";
+                        }
+                        tabla += "</table>";
+
+                      document.querySelector("#capturar").innerHTML += tabla;
+
+                    })
+                    .catch(er=>console.log(er));
                     
                   });
                    

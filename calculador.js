@@ -1,9 +1,10 @@
 const express = require("express");
 
-const app = express();}
+const app = express();
 
+const mat = require("mathjs")
 
-
+app.use(express.json())
 app.use(express.urlencoded({extended:true}));
 
 app.get("/", (req,res)=>{
@@ -24,18 +25,18 @@ app.post("/constructor", (req, res)=>{
 
     //Para verificar muestro por consola los datos capturado
   
-    console.log(`Datos capturados ${JSON.stringify(dimensiones)}`)
+    console.log(`Datos capturados ${JSON.stringify(dimensiones)}`);
+
+    return;
 })
 
 
 
 app.post("/capturar", (req, res)=>{
-    const {matrices} = req.body;
-
+    const matrices = req.body;
     
-
+   return res.json({result: mat.multiply(mat.matrix(matrices.matriz1), mat.matrix(matrices.matriz2))})
     
-   console.log( matrices)
 })
 
 app.listen(4050, ()=>console.log("Listo para los chismes"))
